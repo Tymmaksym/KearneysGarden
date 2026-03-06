@@ -1,17 +1,15 @@
 import { useState, useMemo, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { BookOpen, Flower2, Lightbulb, Calendar, ArrowRight, Mail } from 'lucide-react';
+import { BookOpen, Flower2, Lightbulb, Calendar, ArrowRight } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { BlogCard } from '@/components/BlogCard';
 import { blogPosts, categories } from '@/data/blog';
-import { toast } from 'sonner';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export function Blog() {
   const [selectedCategory, setSelectedCategory] = useState('All');
-  const [email, setEmail] = useState('');
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -44,14 +42,6 @@ export function Blog() {
   }, [selectedCategory]);
 
   const featuredPost = blogPosts[0];
-
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email) {
-      toast.success('Thank you for subscribing to our journal!');
-      setEmail('');
-    }
-  };
 
   return (
     <div ref={sectionRef} className="min-h-screen bg-cream">
@@ -171,36 +161,6 @@ export function Blog() {
           </section>
         </div>
       </div>
-
-      {/* Newsletter */}
-      <section className="fade-in-section py-20 lg:py-28 bg-forest">
-        <div className="px-4 sm:px-6 lg:px-12">
-          <div className="max-w-4xl mx-auto text-center">
-            <Mail className="w-12 h-12 text-dusty mx-auto mb-6" />
-            <h2 className="font-serif text-cream mb-4">Never Miss a Story</h2>
-            <p className="text-cream/80 text-lg mb-8 max-w-2xl mx-auto">
-              Subscribe to our newsletter for seasonal updates, flower care tips,
-              and workshop announcements.
-            </p>
-            <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Your email address"
-                className="flex-1 px-6 py-4 rounded-full border-0 bg-white/10 text-cream placeholder:text-cream/50 focus:outline-none focus:ring-2 focus:ring-dusty"
-                required
-              />
-              <button type="submit" className="btn-primary bg-cream text-forest hover:bg-cream/90">
-                Subscribe
-              </button>
-            </form>
-            <p className="text-cream/50 text-sm mt-4">
-              We respect your privacy. Unsubscribe at any time.
-            </p>
-          </div>
-        </div>
-      </section>
 
       {/* About the Journal */}
       <section className="fade-in-section py-16 lg:py-20 bg-white">

@@ -1,13 +1,12 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowRight, Instagram, Mail } from 'lucide-react';
+import { ArrowRight, Instagram } from 'lucide-react';
 import { ProductCard } from '@/components/ProductCard';
 import { WorkshopCard } from '@/components/WorkshopCard';
 import { getBestsellers } from '@/data/products';
 import { getUpcomingWorkshops } from '@/data/workshops';
-import { toast } from 'sonner';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -335,9 +334,6 @@ export function Home() {
         </div>
       </section>
 
-      {/* Newsletter */}
-      <NewsletterSection />
-
       {/* Instagram Feed */}
       <InstagramSection />
     </div>
@@ -392,50 +388,6 @@ const instagramPosts = [
 
 
 
-// Newsletter Section Component
-function NewsletterSection() {
-  const [email, setEmail] = useState('');
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email) {
-      toast.success('Thank you for subscribing! You will receive our seasonal updates soon.');
-      setEmail('');
-    }
-  };
-
-  return (
-    <section className="fade-in-section py-20 lg:py-28 bg-cream">
-      <div className="px-4 sm:px-6 lg:px-12">
-        <div className="max-w-3xl mx-auto text-center">
-          <div className="w-16 h-16 rounded-full bg-forest/10 flex items-center justify-center mx-auto mb-6">
-            <Mail className="w-8 h-8 text-forest" />
-          </div>
-          <h2 className="font-serif text-charcoal mb-4">Join Our Floral Circle</h2>
-          <p className="text-warmgray mb-8 max-w-xl mx-auto">
-            Subscribe to receive seasonal updates, workshop announcements, exclusive offers, and floral inspiration delivered straight to your inbox.
-          </p>
-          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email address"
-              className="flex-1 px-6 py-4 rounded-full border border-charcoal/10 bg-white focus:outline-none focus:border-forest/50 transition-colors"
-              required
-            />
-            <button type="submit" className="btn-primary whitespace-nowrap">
-              Subscribe
-            </button>
-          </form>
-          <p className="text-warmgray/60 text-sm mt-4">
-            We respect your privacy. Unsubscribe at any time.
-          </p>
-        </div>
-      </div>
-    </section>
-  );
-}
 
 // Instagram Section Component
 function InstagramSection() {

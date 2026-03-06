@@ -22,8 +22,8 @@ export function BlogPost() {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-IE', { 
-      day: 'numeric', 
+    return date.toLocaleDateString('en-IE', {
+      day: 'numeric',
       month: 'long',
       year: 'numeric'
     });
@@ -99,7 +99,7 @@ export function BlogPost() {
         </nav>
 
         {/* Back Button */}
-        <button 
+        <button
           onClick={() => navigate(-1)}
           className="flex items-center gap-2 text-sm text-warmgray mb-8 hover:text-charcoal transition-colors"
         >
@@ -121,11 +121,11 @@ export function BlogPost() {
                 {post.readTime}
               </span>
             </div>
-            
+
             <h1 className="font-serif text-3xl lg:text-5xl text-charcoal mb-6">
               {post.title}
             </h1>
-            
+
             <p className="text-lg text-warmgray leading-relaxed">
               {post.excerpt}
             </p>
@@ -146,8 +146,8 @@ export function BlogPost() {
 
           {/* Featured Image */}
           <div className="aspect-[16/9] rounded-[10px] overflow-hidden mb-10">
-            <img 
-              src={post.image} 
+            <img
+              src={post.image}
               alt={post.title}
               className="w-full h-full object-cover"
             />
@@ -162,7 +162,7 @@ export function BlogPost() {
           <div className="mt-10 pt-6 border-t border-charcoal/10">
             <div className="flex flex-wrap gap-2">
               {post.tags.map((tag) => (
-                <span 
+                <span
                   key={tag}
                   className="px-3 py-1 bg-white text-charcoal text-sm rounded-full"
                 >
@@ -176,25 +176,25 @@ export function BlogPost() {
           <div className="mt-8 flex items-center gap-4">
             <span className="text-sm text-warmgray">Share this article:</span>
             <div className="flex gap-2">
-              <button 
+              <button
                 onClick={() => handleShare('Facebook')}
                 className="p-2 bg-white rounded-full hover:bg-dusty/20 transition-colors"
               >
                 <Facebook className="w-4 h-4" />
               </button>
-              <button 
+              <button
                 onClick={() => handleShare('Twitter')}
                 className="p-2 bg-white rounded-full hover:bg-dusty/20 transition-colors"
               >
                 <Twitter className="w-4 h-4" />
               </button>
-              <button 
+              <button
                 onClick={() => handleShare('LinkedIn')}
                 className="p-2 bg-white rounded-full hover:bg-dusty/20 transition-colors"
               >
                 <Linkedin className="w-4 h-4" />
               </button>
-              <button 
+              <button
                 onClick={() => {
                   navigator.clipboard.writeText(window.location.href);
                   toast.success('Link copied to clipboard');
@@ -219,25 +219,6 @@ export function BlogPost() {
           </section>
         )}
 
-        {/* Newsletter */}
-        <section className="mt-16 max-w-2xl mx-auto text-center">
-          <h2 className="font-serif text-charcoal mb-4">
-            Enjoyed this article?
-          </h2>
-          <p className="text-warmgray mb-6">
-            Subscribe to our newsletter for more flower tips and stories.
-          </p>
-          <form className="flex flex-col sm:flex-row gap-4">
-            <input 
-              type="email" 
-              placeholder="Your email address"
-              className="flex-1 px-4 py-3 rounded-full border border-charcoal/20 bg-white focus:outline-none focus:border-dusty"
-            />
-            <button type="submit" className="btn-primary">
-              Subscribe
-            </button>
-          </form>
-        </section>
       </div>
     </div>
   );
