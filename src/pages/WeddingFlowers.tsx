@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronDown, ChevronUp, Minus, Plus, Sparkles, Send } from 'lucide-react';
+import { ChevronDown, ChevronUp, Sparkles, Send } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
@@ -9,58 +9,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-interface WeddingItem {
-  id: string;
-  name: string;
-  description: string;
-  image: string;
-  maxQty: number;
-}
-
-const weddingItems: WeddingItem[] = [
-  {
-    id: 'bridal-bouquet',
-    name: 'Bridal Bouquet',
-    description: 'Hand-tied bouquet for the bride, crafted with seasonal blooms and elegant foliage.',
-    image: '/images/wedding_bridal_bouquet.jpeg',
-    maxQty: 5,
-  },
-  {
-    id: 'bridesmaid-bouquets',
-    name: 'Bridesmaid Bouquets',
-    description: 'Smaller complementary bouquets to match the bridal arrangement and wedding theme.',
-    image: '/images/wedding_table_centrepiece.jpeg',
-    maxQty: 10,
-  },
-  {
-    id: 'ceremony-arch',
-    name: 'Ceremony Arch',
-    description: 'Stunning floral arch as the perfect ceremony backdrop for exchanging vows.',
-    image: '/images/wedding_arch.jpg',
-    maxQty: 2,
-  },
-  {
-    id: 'pew-end-flowers',
-    name: 'Pew End Flowers',
-    description: 'Delicate arrangements for church pews, adding a romantic touch to the aisle.',
-    image: '/images/wedding_pew_end.jpeg',
-    maxQty: 20,
-  },
-  {
-    id: 'table-centrepieces',
-    name: 'Table Centrepieces',
-    description: 'Elegant table arrangements to bring your reception to life with colour and fragrance.',
-    image: '/images/wedding_table_centrepiece.jpeg',
-    maxQty: 30,
-  },
-  {
-    id: 'altar-arrangements',
-    name: 'Altar Arrangements',
-    description: 'Statement floral pieces for the altar or ceremony focal point.',
-    image: '/images/wedding_altar.jpeg',
-    maxQty: 4,
-  },
-];
+import { ProductCard } from '@/components/ProductCard';
+import { getProductsByCategory } from '@/data/products';
 
 const galleryImages = [
   '/images/wedding_arch.jpg',
@@ -73,7 +23,7 @@ const galleryImages = [
 export function WeddingFlowers() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [quantities, setQuantities] = useState<Record<string, number>>({});
+
   const [formData, setFormData] = useState({
     coupleNames: '',
     email: '',
@@ -113,16 +63,7 @@ export function WeddingFlowers() {
     setOpenFaq(openFaq === index ? null : index);
   };
 
-  const updateQty = (itemId: string, delta: number, maxQty: number) => {
-    setQuantities((prev) => {
-      const current = prev[itemId] || 0;
-      const next = Math.max(0, Math.min(maxQty, current + delta));
-      return { ...prev, [itemId]: next };
-    });
-  };
-
-  const selectedItems = weddingItems.filter((item) => (quantities[item.id] || 0) > 0);
-  const totalItems = selectedItems.reduce((sum, item) => sum + (quantities[item.id] || 0), 0);
+  const weddingProducts = getProductsByCategory('wedding');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -130,8 +71,8 @@ export function WeddingFlowers() {
       toast.error('Please agree to the Terms and Conditions');
       return;
     }
-    if (selectedItems.length === 0) {
-      toast.error('Please select at least one item for your wedding set');
+    if (!formData.notes) {
+      toast.error('Please provide some notes about your wedding request');
       return;
     }
     toast.success('Thank you! We will contact you within 24 hours to discuss your wedding flowers.');
@@ -145,7 +86,7 @@ export function WeddingFlowers() {
       notes: '',
       agreed: false,
     });
-    setQuantities({});
+
   };
 
   const faqs = [
@@ -236,87 +177,11 @@ export function WeddingFlowers() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {weddingItems.map((item) => {
-              const qty = quantities[item.id] || 0;
-              const isSelected = qty > 0;
-
-              return (
-                <div
-                  key={item.id}
-                  className={`rounded-[10px] overflow-hidden border-2 transition-all duration-300 ${isSelected
-                    ? 'border-dusty shadow-lg shadow-dusty/10'
-                    : 'border-charcoal/10 hover:border-charcoal/20'
-                    }`}
-                >
-                  <div className="aspect-[4/3] overflow-hidden relative">
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className="w-full h-full object-cover"
-                    />
-                    {isSelected && (
-                      <div className="absolute top-3 right-3 w-8 h-8 bg-dusty rounded-full flex items-center justify-center text-sm font-bold text-charcoal">
-                        {qty}
-                      </div>
-                    )}
-                  </div>
-                  <div className="p-5">
-                    <h3 className="font-serif text-lg text-charcoal mb-1">{item.name}</h3>
-                    <p className="text-sm text-warmgray mb-4 leading-relaxed">{item.description}</p>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center border border-charcoal/20 rounded-full">
-                        <button
-                          onClick={() => updateQty(item.id, -1, item.maxQty)}
-                          className="w-9 h-9 flex items-center justify-center hover:bg-cream rounded-l-full transition-colors"
-                          aria-label={`Decrease ${item.name} quantity`}
-                        >
-                          <Minus className="w-3.5 h-3.5" />
-                        </button>
-                        <span className="w-10 text-center text-sm font-medium">{qty}</span>
-                        <button
-                          onClick={() => updateQty(item.id, 1, item.maxQty)}
-                          className="w-9 h-9 flex items-center justify-center hover:bg-cream rounded-r-full transition-colors"
-                          aria-label={`Increase ${item.name} quantity`}
-                        >
-                          <Plus className="w-3.5 h-3.5" />
-                        </button>
-                      </div>
-                      <span className="text-xs text-warmgray">max {item.maxQty}</span>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+          <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6">
+            {weddingProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
           </div>
-
-          {/* Selection Summary */}
-          {selectedItems.length > 0 && (
-            <div className="mt-10 p-6 bg-cream rounded-[10px] border border-charcoal/10">
-              <div className="flex flex-wrap items-center justify-between gap-4">
-                <div>
-                  <h4 className="font-serif text-charcoal mb-2">Your Wedding Set</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {selectedItems.map((item) => (
-                      <span
-                        key={item.id}
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white rounded-full text-sm"
-                      >
-                        <span className="font-medium text-charcoal">{quantities[item.id]}×</span>
-                        <span className="text-warmgray">{item.name}</span>
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <a
-                  href="#inquiry-form"
-                  className="btn-primary inline-flex items-center gap-2 whitespace-nowrap"
-                >
-                  Request Quote ({totalItems} {totalItems === 1 ? 'item' : 'items'})
-                </a>
-              </div>
-            </div>
-          )}
         </div>
       </section>
 
@@ -473,27 +338,7 @@ export function WeddingFlowers() {
                 </div>
               </div>
 
-              {/* Selected items summary in form */}
-              {selectedItems.length > 0 && (
-                <div>
-                  <Label className="text-label text-charcoal mb-2 block">
-                    Selected Items
-                  </Label>
-                  <div className="bg-cream/50 border border-charcoal/20 rounded-lg p-4">
-                    <div className="flex flex-wrap gap-2">
-                      {selectedItems.map((item) => (
-                        <span
-                          key={item.id}
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white rounded-full text-sm border border-charcoal/10"
-                        >
-                          <span className="font-medium text-charcoal">{quantities[item.id]}×</span>
-                          <span className="text-warmgray">{item.name}</span>
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              )}
+
 
               <div>
                 <Label htmlFor="notes" className="text-label text-charcoal mb-2 block">

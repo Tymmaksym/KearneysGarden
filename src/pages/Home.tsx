@@ -60,7 +60,8 @@ export function Home() {
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: 'url(/images/hero_garden_wall.webp)' }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-black/20" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/20 to-transparent" />
 
         <div className="relative z-10 w-full px-4 sm:px-6 lg:px-12 pt-32 pb-20">
           <div className="hero-content max-w-2xl text-white">
@@ -101,18 +102,20 @@ export function Home() {
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />
+                <div className="absolute bottom-6 left-0 right-0 flex justify-center z-10">
+                  <Link
+                    to="/bouquets"
+                    className="btn-primary text-sm px-6 py-2.5 opacity-100 translate-y-0 lg:opacity-0 lg:translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300"
+                  >
+                    Shop Bouquets
+                  </Link>
+                </div>
               </div>
               <div className="p-6">
-                <h3 className="font-serif text-xl text-charcoal mb-3">Seasonal Bouquets</h3>
+                <h3 className="font-serif text-2xl text-charcoal mb-3">Seasonal Bouquets</h3>
                 <p className="text-sm text-warmgray leading-relaxed mb-4">
                   Hand-tied bouquets featuring the best blooms of the week. Perfect for gifting or bringing nature home.
                 </p>
-                <Link
-                  to="/bouquets"
-                  className="text-xs font-bold uppercase tracking-widest text-charcoal border-b border-charcoal/20 pb-0.5 hover:border-charcoal transition-colors"
-                >
-                  Shop Bouquets
-                </Link>
               </div>
             </div>
 
@@ -125,18 +128,20 @@ export function Home() {
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />
+                <div className="absolute bottom-6 left-0 right-0 flex justify-center z-10">
+                  <Link
+                    to="/funeral-flowers"
+                    className="btn-primary text-sm px-6 py-2.5 opacity-100 translate-y-0 lg:opacity-0 lg:translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300"
+                  >
+                    View Tributes
+                  </Link>
+                </div>
               </div>
               <div className="p-6">
-                <h3 className="font-serif text-xl text-charcoal mb-3">Funeral Flowers</h3>
+                <h3 className="font-serif text-2xl text-charcoal mb-3">Funeral Flowers</h3>
                 <p className="text-sm text-warmgray leading-relaxed mb-4">
                   Thoughtful tributes and sympathy arrangements, handcrafted with care and respect.
                 </p>
-                <Link
-                  to="/funeral-flowers"
-                  className="text-xs font-bold uppercase tracking-widest text-charcoal border-b border-charcoal/20 pb-0.5 hover:border-charcoal transition-colors"
-                >
-                  View Tributes
-                </Link>
               </div>
             </div>
 
@@ -149,18 +154,20 @@ export function Home() {
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />
+                <div className="absolute bottom-6 left-0 right-0 flex justify-center z-10">
+                  <Link
+                    to="/wedding-flowers"
+                    className="btn-primary text-sm px-6 py-2.5 opacity-100 translate-y-0 lg:opacity-0 lg:translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300"
+                  >
+                    View Weddings
+                  </Link>
+                </div>
               </div>
               <div className="p-6">
-                <h3 className="font-serif text-xl text-charcoal mb-3">Weddings</h3>
+                <h3 className="font-serif text-2xl text-charcoal mb-3">Weddings</h3>
                 <p className="text-sm text-warmgray leading-relaxed mb-4">
                   From intimate ceremonies to grand celebrations, we create wild and romantic floral designs.
                 </p>
-                <Link
-                  to="/weddings"
-                  className="text-xs font-bold uppercase tracking-widest text-charcoal border-b border-charcoal/20 pb-0.5 hover:border-charcoal transition-colors"
-                >
-                  View Weddings
-                </Link>
               </div>
             </div>
           </div>
@@ -249,12 +256,12 @@ export function Home() {
 
           <div className="text-center mt-8">
             <a
-              href="https://maps.google.com"
+              href="https://www.google.com/maps/search/?api=1&query=Kearneys+Gardens,+Roscommon,+Ireland"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-charcoal hover:text-dusty transition-colors"
+              className="btn-primary text-sm px-8 py-3"
             >
-              Get Directions <ArrowRight className="w-4 h-4" />
+              Get Directions
             </a>
           </div>
         </div>
@@ -306,11 +313,11 @@ export function Home() {
                 View All Workshops
               </Link>
             </div>
-            <div className="relative aspect-[4/5] rounded-[10px] overflow-hidden">
+            <div className="relative aspect-[4/5] rounded-[4px] overflow-hidden bg-white/50 flex items-center justify-center p-8">
               <img
-                src="/images/workshop_table.jpeg"
-                alt="Flower workshop"
-                className="w-full h-full object-cover"
+                src="/images/line_workshop.jpg"
+                alt="Flower workshop illustration"
+                className="w-full h-auto object-contain mix-blend-multiply opacity-80"
               />
             </div>
           </div>

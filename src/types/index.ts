@@ -6,7 +6,7 @@ export interface Product {
   price: number;
   originalPrice?: number;
   images: string[];
-  category: 'bouquet' | 'planter' | 'gift' | 'vase' | 'candle';
+  category: 'bouquet' | 'planter' | 'gift' | 'vase' | 'candle' | 'wedding' | 'funeral';
   tags: string[];
   inStock: boolean;
   stockCount: number;

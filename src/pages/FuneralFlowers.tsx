@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronDown, ChevronUp, Minus, Plus, Send } from 'lucide-react';
+import { ChevronDown, ChevronUp, Send } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
@@ -9,56 +9,13 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-interface FuneralItem {
-    id: string;
-    name: string;
-    description: string;
-    image: string;
-    price: number;
-}
-
-const funeralItems: FuneralItem[] = [
-    {
-        id: 'remembrance-posy',
-        name: 'Remembrance Posy',
-        description: 'A round, compact floral arrangement, approximately 1 foot in diameter. A gentle and thoughtful tribute suitable for services or gravesides.',
-        image: '/images/funeral/remembrance_posy.jpg',
-        price: 30,
-    },
-    {
-        id: 'remembrance-wreath',
-        name: 'Remembrance Wreath',
-        description: 'A traditional round wreath, approximately 18 inches in diameter. Made in your preferred colours and floral style, using seasonal blooms (subject to availability).',
-        image: '/images/funeral/remembrance_wreath.jpg',
-        price: 50,
-    },
-    {
-        id: 'diamond-spray',
-        name: 'Diamond Spray',
-        description: 'A diamond-shaped spray, approximately 2 feet long. Created in your choice of colours, this elegant piece can be used alone or as part of a fuller tribute.',
-        image: '/images/funeral/diamond_spray.jpg',
-        price: 50,
-    },
-    {
-        id: 'funeral-sheaf',
-        name: 'Funeral Sheaf',
-        description: 'A bouquet-style arrangement designed to lay flat, created on a floral foam base. Approximately 3 feet long and tailored to your colour preferences.',
-        image: '/images/funeral/funeral_sheaf.jpg',
-        price: 75,
-    },
-    {
-        id: 'casket-spray',
-        name: 'Casket Spray',
-        description: 'A classic and elegant tribute, approximately 4.5 feet long by 2 feet wide. Custom-made in your preferred colours and style. Other sizes can be prepared to suit your needs.',
-        image: '/images/funeral/casket_spray.jpg',
-        price: 150,
-    },
-];
+import { ProductCard } from '@/components/ProductCard';
+import { getProductsByCategory } from '@/data/products';
 
 export function FuneralFlowers() {
     const sectionRef = useRef<HTMLDivElement>(null);
     const [openFaq, setOpenFaq] = useState<number | null>(null);
-    const [quantities, setQuantities] = useState<Record<string, number>>({});
+
     const [formData, setFormData] = useState({
         customerName: '',
         email: '',
@@ -97,17 +54,7 @@ export function FuneralFlowers() {
         setOpenFaq(openFaq === index ? null : index);
     };
 
-    const updateQty = (itemId: string, delta: number) => {
-        setQuantities((prev) => {
-            const current = prev[itemId] || 0;
-            const next = Math.max(0, current + delta);
-            return { ...prev, [itemId]: next };
-        });
-    };
-
-    const selectedItems = funeralItems.filter((item) => (quantities[item.id] || 0) > 0);
-
-    const estimatedTotal = selectedItems.reduce((sum, item) => sum + (item.price * (quantities[item.id] || 0)), 0);
+    const funeralProducts = getProductsByCategory('funeral');
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -115,8 +62,8 @@ export function FuneralFlowers() {
             toast.error('Please agree to the Terms and Conditions');
             return;
         }
-        if (selectedItems.length === 0 && !formData.notes) {
-            toast.error('Please select items or describe your request in the notes');
+        if (!formData.notes) {
+            toast.error('Please describe your request in the notes');
             return;
         }
         toast.success('Thank you. We will contact you shortly to confirm details.');
@@ -129,7 +76,7 @@ export function FuneralFlowers() {
             notes: '',
             agreed: false,
         });
-        setQuantities({});
+
     };
 
     const faqs = [
@@ -200,99 +147,11 @@ export function FuneralFlowers() {
                         <h2 className="font-serif text-charcoal mb-3">Select Your Tribute</h2>
                     </div>
 
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {funeralItems.map((item) => {
-                            const qty = quantities[item.id] || 0;
-                            const isSelected = qty > 0;
-
-                            return (
-                                <div
-                                    key={item.id}
-                                    className={`bg-white rounded-[10px] overflow-hidden border-2 transition-all duration-300 ${isSelected
-                                        ? 'border-dusty shadow-lg shadow-dusty/10'
-                                        : 'border-charcoal/5 hover:border-charcoal/20'
-                                        }`}
-                                >
-                                    <div className="aspect-[4/3] overflow-hidden relative">
-                                        <img
-                                            src={item.image}
-                                            alt={item.name}
-                                            className="w-full h-full object-cover"
-                                        />
-                                        {isSelected && (
-                                            <div className="absolute top-3 right-3 w-8 h-8 bg-dusty rounded-full flex items-center justify-center text-sm font-bold text-charcoal">
-                                                {qty}
-                                            </div>
-                                        )}
-                                    </div>
-                                    <div className="p-6">
-                                        <div className="flex justify-between items-start mb-2">
-                                            <h3 className="font-serif text-lg text-charcoal">{item.name}</h3>
-                                            <span className="font-serif text-lg text-dusty">€{item.price}</span>
-                                        </div>
-                                        <p className="text-sm text-warmgray mb-6 leading-relaxed">{item.description}</p>
-
-                                        <div className="flex items-center justify-between mt-auto">
-                                            <div className="flex items-center border border-charcoal/20 rounded-full">
-                                                <button
-                                                    onClick={() => updateQty(item.id, -1)}
-                                                    className="w-10 h-10 flex items-center justify-center hover:bg-cream rounded-l-full transition-colors"
-                                                    aria-label={`Decrease ${item.name} quantity`}
-                                                >
-                                                    <Minus className="w-3.5 h-3.5" />
-                                                </button>
-                                                <span className="w-10 text-center text-sm font-medium">{qty}</span>
-                                                <button
-                                                    onClick={() => updateQty(item.id, 1)}
-                                                    className="w-10 h-10 flex items-center justify-center hover:bg-cream rounded-r-full transition-colors"
-                                                    aria-label={`Increase ${item.name} quantity`}
-                                                >
-                                                    <Plus className="w-3.5 h-3.5" />
-                                                </button>
-                                            </div>
-                                            {isSelected && (
-                                                <span className="text-sm font-medium text-charcoal">
-                                                    €{item.price * qty}
-                                                </span>
-                                            )}
-                                        </div>
-                                    </div>
-                                </div>
-                            );
-                        })}
+                    <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6">
+                        {funeralProducts.map((product) => (
+                            <ProductCard key={product.id} product={product} />
+                        ))}
                     </div>
-
-                    {/* Selection Summary */}
-                    {selectedItems.length > 0 && (
-                        <div className="mt-10 p-6 bg-white rounded-[10px] border border-charcoal/10 shadow-sm">
-                            <div className="flex flex-wrap items-center justify-between gap-4">
-                                <div>
-                                    <h4 className="font-serif text-charcoal mb-2">Your Selection</h4>
-                                    <div className="flex flex-wrap gap-2">
-                                        {selectedItems.map((item) => (
-                                            <span
-                                                key={item.id}
-                                                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-cream rounded-full text-sm border border-charcoal/5"
-                                            >
-                                                <span className="font-medium text-charcoal">{quantities[item.id]}×</span>
-                                                <span className="text-warmgray">{item.name}</span>
-                                            </span>
-                                        ))}
-                                    </div>
-                                </div>
-                                <div className="text-right">
-                                    <p className="text-sm text-warmgray mb-1">Estimated Total</p>
-                                    <p className="font-serif text-xl text-charcoal">€{estimatedTotal}</p>
-                                </div>
-                                <a
-                                    href="#inquiry-form"
-                                    className="btn-primary inline-flex items-center gap-2 whitespace-nowrap"
-                                >
-                                    Proceed to Inquiry
-                                </a>
-                            </div>
-                        </div>
-                    )}
                 </div>
             </section>
 
@@ -381,30 +240,7 @@ export function FuneralFlowers() {
                                 />
                             </div>
 
-                            {/* Selected items summary in form */}
-                            {selectedItems.length > 0 && (
-                                <div>
-                                    <Label className="text-label text-charcoal mb-2 block">
-                                        Selected Tributes
-                                    </Label>
-                                    <div className="bg-white border border-charcoal/20 rounded-lg p-4">
-                                        <div className="flex flex-wrap gap-2 mb-3">
-                                            {selectedItems.map((item) => (
-                                                <span
-                                                    key={item.id}
-                                                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-cream rounded-full text-sm border border-charcoal/10"
-                                                >
-                                                    <span className="font-medium text-charcoal">{quantities[item.id]}×</span>
-                                                    <span className="text-warmgray">{item.name}</span>
-                                                </span>
-                                            ))}
-                                        </div>
-                                        <div className="text-right border-t border-charcoal/10 pt-2">
-                                            <span className="text-sm font-medium text-charcoal">Total Value: €{estimatedTotal}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
+
 
                             <div>
                                 <Label htmlFor="notes" className="text-label text-charcoal mb-2 block">

@@ -176,7 +176,7 @@ export function WorkshopDetail() {
             <div className="bg-white rounded-[10px] p-6 mb-6">
               <div className="flex items-center justify-between mb-4">
                 <div>
-                  <span className="text-3xl font-serif text-charcoal">€{workshop.price}</span>
+                  <span className="text-4xl font-serif text-dusty">€{workshop.price}</span>
                   <span className="text-warmgray ml-2">per person</span>
                 </div>
                 {isFull && (
@@ -228,8 +228,8 @@ export function WorkshopDetail() {
                 <button
                   onClick={handleWishlist}
                   className={`w-12 h-12 rounded-full border-2 flex items-center justify-center transition-colors ${isWishlisted
-                      ? 'border-dusty bg-dusty text-charcoal'
-                      : 'border-charcoal/20 text-charcoal hover:border-dusty'
+                    ? 'border-dusty bg-dusty text-charcoal'
+                    : 'border-charcoal/20 text-charcoal hover:border-dusty'
                     }`}
                 >
                   <Heart className={`w-5 h-5 ${isWishlisted ? 'fill-current' : ''}`} />

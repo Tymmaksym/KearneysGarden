@@ -46,7 +46,7 @@ export function WorkshopCard({ workshop, variant = 'default' }: WorkshopCardProp
             </span>
           </div>
           <div className="flex items-center justify-between mt-3">
-            <span className="font-medium text-charcoal">€{workshop.price}</span>
+            <span className="font-serif text-2xl text-dusty">€{workshop.price}</span>
             {isFull ? (
               <span className="text-xs text-red-500">Fully Booked</span>
             ) : spotsLeft <= 3 ? (
@@ -108,7 +108,7 @@ export function WorkshopCard({ workshop, variant = 'default' }: WorkshopCardProp
           <h3 className="font-serif text-xl text-charcoal leading-tight group-hover:text-dusty transition-colors">
             {workshop.title}
           </h3>
-          <span className="font-serif text-lg text-charcoal flex-shrink-0">€{workshop.price}</span>
+          <span className="font-serif text-3xl text-dusty flex-shrink-0">€{workshop.price}</span>
         </div>
 
         <p className="text-sm text-warmgray mb-6 line-clamp-2 leading-relaxed">

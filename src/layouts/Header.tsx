@@ -56,7 +56,7 @@ export function Header() {
 
   const headerBgClass = showSolidHeader
     ? 'bg-cream/95 backdrop-blur-md shadow-sm py-3'
-    : 'bg-transparent py-5';
+    : 'bg-black/[0.0001] backdrop-blur-[2px] py-4';
 
 
 

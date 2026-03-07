@@ -19,7 +19,7 @@ export function CartDrawer() {
           <SheetTitle className="font-serif text-2xl flex items-center gap-3">
             <ShoppingBag className="w-6 h-6" />
             Your Bag
-            <span className="text-sm font-sans font-normal text-warmgray ml-auto">
+            <span className="text-sm font-sans font-normal text-warmgray ml-auto mr-8">
               {items.length} {items.length === 1 ? 'item' : 'items'}
             </span>
           </SheetTitle>
@@ -30,7 +30,7 @@ export function CartDrawer() {
             <ShoppingBag className="w-16 h-16 text-warmgray/30 mb-4" />
             <p className="font-serif text-xl text-charcoal mb-2">Your bag is empty</p>
             <p className="text-sm text-warmgray mb-6">Add some beautiful blooms!</p>
-            <button 
+            <button
               onClick={() => setIsOpen(false)}
               className="btn-primary"
             >
@@ -41,12 +41,12 @@ export function CartDrawer() {
           <>
             <div className="flex-1 overflow-auto py-4 space-y-4">
               {items.map((item) => (
-                <div 
+                <div
                   key={`${item.product.id}-${item.size}-${item.color}`}
                   className="flex gap-4 p-3 bg-white rounded-lg"
                 >
-                  <img 
-                    src={item.product.images[0]} 
+                  <img
+                    src={item.product.images[0]}
                     alt={item.product.name}
                     className="w-20 h-20 object-cover rounded-md"
                   />
@@ -61,24 +61,24 @@ export function CartDrawer() {
                     <p className="text-sm font-medium text-charcoal mt-1">
                       €{item.product.price}
                     </p>
-                    
+
                     <div className="flex items-center justify-between mt-2">
                       <div className="flex items-center gap-2">
-                        <button 
+                        <button
                           onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
                           className="w-7 h-7 flex items-center justify-center rounded-full bg-cream hover:bg-dusty/20 transition-colors"
                         >
                           <Minus className="w-3 h-3" />
                         </button>
                         <span className="text-sm w-6 text-center">{item.quantity}</span>
-                        <button 
+                        <button
                           onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
                           className="w-7 h-7 flex items-center justify-center rounded-full bg-cream hover:bg-dusty/20 transition-colors"
                         >
                           <Plus className="w-3 h-3" />
                         </button>
                       </div>
-                      <button 
+                      <button
                         onClick={() => handleRemove(item.product.id, item.product.name)}
                         className="p-2 text-warmgray hover:text-red-500 transition-colors"
                       >
@@ -98,14 +98,14 @@ export function CartDrawer() {
               <p className="text-xs text-warmgray">
                 Shipping calculated at checkout
               </p>
-              <Link 
+              <Link
                 to="/checkout"
                 onClick={() => setIsOpen(false)}
                 className="btn-primary w-full block text-center"
               >
                 Proceed to Checkout
               </Link>
-              <button 
+              <button
                 onClick={() => setIsOpen(false)}
                 className="btn-secondary w-full"
               >
