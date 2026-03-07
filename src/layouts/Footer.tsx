@@ -29,9 +29,9 @@ export function Footer() {
   return (
     <footer className="bg-forest text-cream">
       <div className="px-4 sm:px-6 lg:px-12 py-16 lg:py-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8">
           {/* Brand Column */}
-          <div className="lg:col-span-2">
+          <div className="col-span-2 lg:col-span-2">
             <Link to="/" className="font-serif text-2xl lg:text-3xl text-cream block mb-6">
               Kearney's Gardens
             </Link>
@@ -100,7 +100,7 @@ export function Footer() {
           </div>
 
           {/* Shop Links */}
-          <div>
+          <div className="col-span-1">
             <h4 className="text-label text-cream/50 mb-4">Shop</h4>
             <ul className="space-y-3">
               {footerLinks.shop.map((link) => (
@@ -117,7 +117,7 @@ export function Footer() {
           </div>
 
           {/* Company Links */}
-          <div>
+          <div className="col-span-1">
             <h4 className="text-label text-cream/50 mb-4">Company</h4>
             <ul className="space-y-3">
               {footerLinks.company.map((link) => (
@@ -134,7 +134,7 @@ export function Footer() {
           </div>
 
           {/* Support Links */}
-          <div>
+          <div className="col-span-1 md:col-span-2 lg:col-span-1">
             <h4 className="text-label text-cream/50 mb-4">Support</h4>
             <ul className="space-y-3">
               {footerLinks.support.map((link) => (

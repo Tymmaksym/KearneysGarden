@@ -87,22 +87,24 @@ export function ProductCard({ product, showQuickAdd = true }: ProductCardProps) 
       </div>
 
       {/* Product Info */}
-      <div className="space-y-1">
-        <h3 className="font-serif text-lg text-charcoal group-hover:text-dusty transition-colors">
-          {product.name}
-        </h3>
-        <div className="flex items-center gap-2">
-          <div className="flex items-center gap-1">
-            <Star className="w-3.5 h-3.5 fill-dusty text-dusty" />
-            <span className="text-sm text-warmgray">{product.rating}</span>
+      <div className="flex justify-between items-start mt-4 gap-4">
+        <div className="space-y-1">
+          <h3 className="font-serif text-lg text-charcoal group-hover:text-dusty transition-colors leading-tight">
+            {product.name}
+          </h3>
+          <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1">
+              <Star className="w-3.5 h-3.5 fill-dusty text-dusty" />
+              <span className="text-sm text-warmgray">{product.rating}</span>
+            </div>
+            <span className="text-warmgray/50">•</span>
+            <span className="text-sm text-warmgray">({product.reviewCount})</span>
           </div>
-          <span className="text-warmgray/50">•</span>
-          <span className="text-sm text-warmgray">({product.reviewCount})</span>
         </div>
-        <p className="font-serif text-3xl text-dusty">
+        <p className="font-serif text-3xl sm:text-4xl lg:text-[40px] text-[#9A6A4D] font-medium whitespace-nowrap mt-[-4px]">
           €{product.price}
           {product.sizes && product.sizes.length > 0 && (
-            <span className="text-sm text-warmgray font-normal"> +</span>
+            <span className="text-base text-[#9A6A4D]/80 font-normal ml-1">+</span>
           )}
         </p>
       </div>

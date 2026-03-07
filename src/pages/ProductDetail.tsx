@@ -134,10 +134,10 @@ export function ProductDetail() {
             </div>
 
             {/* Price */}
-            <div className="mb-6">
-              <span className="font-serif text-4xl text-dusty">€{currentPrice}</span>
+            <div className="mb-6 flex items-baseline flex-wrap gap-4">
+              <span className="font-serif text-[64px] lg:text-[80px] leading-none text-[#9A6A4D] transition-all">€{currentPrice}</span>
               {product.originalPrice && (
-                <span className="ml-3 text-lg text-warmgray line-through">
+                <span className="text-2xl text-[#9A6A4D]/60 line-through">
                   €{product.originalPrice}
                 </span>
               )}

@@ -47,7 +47,7 @@ export function Header() {
   ];
 
   const isTransparentPage = TRANSPARENT_HEADER_ROUTES.includes(location.pathname);
-  const showSolidHeader = isScrolled || !isTransparentPage;
+  const showSolidHeader = isScrolled || !isTransparentPage || mobileMenuOpen;
 
   const isActive = (path: string) => {
     if (path === '/') return location.pathname === '/';
@@ -55,7 +55,7 @@ export function Header() {
   };
 
   const headerBgClass = showSolidHeader
-    ? 'bg-cream/95 backdrop-blur-md shadow-sm py-3'
+    ? 'bg-cream shadow-sm py-3'
     : 'bg-black/[0.0001] backdrop-blur-[2px] py-4';
 
 
@@ -129,12 +129,12 @@ export function Header() {
 
           {/* Mobile Menu Button */}
           <button
-            className={`lg:hidden p-2 rounded-full transition-colors ${hoverBgClass}`}
+            className="lg:hidden p-2 rounded-full transition-colors bg-charcoal text-white hover:bg-charcoal/90"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen
-              ? <X className={`w-6 h-6 transition-colors ${iconClass}`} />
-              : <Menu className={`w-6 h-6 transition-colors ${iconClass}`} />
+              ? <X className="w-6 h-6 text-white" />
+              : <Menu className="w-6 h-6 text-white" />
             }
           </button>
         </div>
@@ -142,7 +142,7 @@ export function Header() {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden absolute top-full left-0 right-0 bg-cream/98 backdrop-blur-md border-t border-charcoal/10 py-6 px-6 shadow-lg">
+        <div className="lg:hidden absolute top-full left-0 right-0 bg-cream border-t border-charcoal/10 py-6 px-6 shadow-xl">
           <nav className="flex flex-col gap-4">
             {navLinks.map((link) => (
               <Link
