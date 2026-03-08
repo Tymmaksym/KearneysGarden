@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { Heart, Share2, Truck, Star, Minus, Plus, ChevronLeft } from 'lucide-react';
+import { Heart, Share2, Truck, Star, Minus, Plus, ChevronLeft, ShoppingBag } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useCart } from '@/contexts/CartContext';
 import { getProductById, products } from '@/data/products';
@@ -114,36 +114,39 @@ export function ProductDetail() {
               )}
             </div>
 
-            <h1 className="font-serif text-3xl lg:text-4xl text-charcoal mb-4">
-              {product.name}
-            </h1>
+            <div className="flex justify-between items-start mb-6">
+              <div>
+                <h1 className="font-serif text-3xl lg:text-4xl text-charcoal mb-4">
+                  {product.name}
+                </h1>
 
-            {/* Rating */}
-            <div className="flex items-center gap-3 mb-6">
-              <div className="flex items-center gap-1">
-                {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    className={`w-4 h-4 ${i < Math.floor(product.rating) ? 'fill-dusty text-dusty' : 'text-warmgray/30'}`}
-                  />
-                ))}
+                {/* Rating */}
+                <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-1">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className={`w-4 h-4 ${i < Math.floor(product.rating) ? 'fill-dusty text-dusty' : 'text-warmgray/30'}`}
+                      />
+                    ))}
+                  </div>
+                  <span className="text-sm text-warmgray">
+                    {product.rating} ({product.reviewCount} reviews)
+                  </span>
+                </div>
+                <div className="mt-2 text-sm font-medium text-dusty">
+                  Category: <span className="font-normal">{product.categoryLabel || product.category}</span>
+                </div>
               </div>
-              <span className="text-sm text-warmgray">
-                {product.rating} ({product.reviewCount} reviews)
-              </span>
-            </div>
 
-            {/* Price */}
-            <div className="mb-6 flex items-baseline flex-wrap gap-4">
-              <span className="font-serif text-[64px] lg:text-[80px] leading-none text-[#9A6A4D] transition-all">€{currentPrice}</span>
-              {product.originalPrice && (
-                <span className="text-2xl text-[#9A6A4D]/60 line-through">
-                  €{product.originalPrice}
-                </span>
-              )}
-
-              <div className="mt-2 text-sm font-medium text-dusty">
-                Category: <span className="font-normal">{product.categoryLabel || product.category}</span>
+              {/* Price */}
+              <div className="text-right flex-shrink-0">
+                <span className="font-serif text-4xl text-dusty">€{currentPrice}</span>
+                {product.originalPrice && (
+                  <span className="ml-3 text-lg text-warmgray line-through">
+                    €{product.originalPrice}
+                  </span>
+                )}
               </div>
             </div>
 
@@ -205,8 +208,9 @@ export function ProductDetail() {
               <button
                 onClick={handleAddToCart}
                 disabled={!product.inStock}
-                className="flex-1 btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-1 bg-white border-2 border-charcoal/20 text-charcoal h-14 rounded-full font-medium flex items-center justify-center gap-2 hover:bg-dusty hover:text-white hover:border-dusty transition-all disabled:opacity-50 disabled:cursor-not-allowed group"
               >
+                <ShoppingBag className="w-5 h-5 transition-colors group-hover:text-white" />
                 {product.inStock ? 'Add to Bag' : 'Out of Stock'}
               </button>
               <button

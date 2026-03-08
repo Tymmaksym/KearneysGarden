@@ -142,24 +142,23 @@ export function Header() {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden absolute top-full left-0 right-0 bg-cream border-t border-charcoal/10 py-6 px-6 shadow-xl">
-          <nav className="flex flex-col gap-4">
+        <div className="lg:hidden absolute top-full left-0 right-0 bg-cream backdrop-blur-md border-t border-charcoal/10 py-8 px-6 shadow-2xl h-screen overflow-y-auto">
+          <nav className="flex flex-col gap-6 pb-32">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 to={link.href}
-                className={`text-left text-lg font-serif py-2 ${isActive(link.href) ? 'text-charcoal' : 'text-charcoal/70'
+                className={`text-left text-2xl font-serif py-2 border-b border-charcoal/5 ${isActive(link.href) ? 'text-charcoal' : 'text-charcoal/70'
                   }`}
               >
                 {link.name}
               </Link>
             ))}
-            <hr className="border-charcoal/10 my-2" />
             <Link
               to="/account"
-              className="text-left text-lg font-serif py-2 text-charcoal/70 flex items-center gap-3"
+              className="text-left text-2xl font-serif py-2 text-charcoal/70 flex items-center gap-3 mt-4"
             >
-              <User className="w-5 h-5" />
+              <User className="w-6 h-6" />
               My Account
             </Link>
           </nav>

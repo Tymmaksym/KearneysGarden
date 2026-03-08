@@ -87,9 +87,9 @@ export function ProductCard({ product, showQuickAdd = true }: ProductCardProps) 
       </div>
 
       {/* Product Info */}
-      <div className="flex justify-between items-start mt-4 gap-4">
+      <div className="flex justify-between items-start pt-2">
         <div className="space-y-1">
-          <h3 className="font-serif text-lg text-charcoal group-hover:text-dusty transition-colors leading-tight">
+          <h3 className="font-serif text-lg text-charcoal group-hover:text-dusty transition-colors pr-2">
             {product.name}
           </h3>
           <div className="flex items-center gap-2">
@@ -101,12 +101,14 @@ export function ProductCard({ product, showQuickAdd = true }: ProductCardProps) 
             <span className="text-sm text-warmgray">({product.reviewCount})</span>
           </div>
         </div>
-        <p className="font-serif text-3xl sm:text-4xl lg:text-[40px] text-[#9A6A4D] font-medium whitespace-nowrap mt-[-4px]">
-          €{product.price}
-          {product.sizes && product.sizes.length > 0 && (
-            <span className="text-base text-[#9A6A4D]/80 font-normal ml-1">+</span>
-          )}
-        </p>
+        <div className="text-right flex-shrink-0">
+          <p className="font-serif text-3xl text-dusty whitespace-nowrap text-right pr-2">
+            €{product.price}
+            {product.sizes && product.sizes.length > 0 && (
+              <span className="text-sm text-warmgray font-normal"> +</span>
+            )}
+          </p>
+        </div>
       </div>
     </Link>
   );
