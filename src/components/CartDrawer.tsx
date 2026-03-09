@@ -15,11 +15,11 @@ export function CartDrawer() {
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetContent className="bg-cream border-l border-charcoal/10 w-full sm:max-w-md flex flex-col">
-        <SheetHeader className="border-b border-charcoal/10 pb-4">
+        <SheetHeader className="border-b border-charcoal/10 pb-4 px-4 sm:px-6 pt-6">
           <SheetTitle className="font-serif text-2xl flex items-center gap-3">
             <ShoppingBag className="w-6 h-6" />
             Your Bag
-            <span className="text-sm font-sans font-normal text-warmgray ml-auto mr-8">
+            <span className="text-sm font-sans font-normal text-warmgray ml-auto mr-10">
               {items.length} {items.length === 1 ? 'item' : 'items'}
             </span>
           </SheetTitle>
@@ -39,7 +39,7 @@ export function CartDrawer() {
           </div>
         ) : (
           <>
-            <div className="flex-1 overflow-auto py-4 space-y-4">
+            <div className="flex-1 overflow-auto py-4 px-4 sm:px-6 space-y-4">
               {items.map((item) => (
                 <div
                   key={`${item.product.id}-${item.size}-${item.color}`}
@@ -90,7 +90,7 @@ export function CartDrawer() {
               ))}
             </div>
 
-            <div className="border-t border-charcoal/10 pt-4 space-y-4">
+            <div className="border-t border-charcoal/10 p-4 sm:p-6 space-y-4">
               <div className="flex justify-between items-center">
                 <span className="text-warmgray">Subtotal</span>
                 <span className="font-serif text-xl text-charcoal">€{totalPrice.toFixed(2)}</span>
